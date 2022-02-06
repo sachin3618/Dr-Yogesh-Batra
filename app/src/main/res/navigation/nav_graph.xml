@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/doctorBooking">
+
+    <fragment
+        android:id="@+id/doctorBooking"
+        android:name="com.example.dryogeshbatra.fragments.doctorBooking.DoctorBookingFragment"
+        android:label="doctor_booking_fragment"
+        tools:layout="@layout/doctor_booking_fragment" >
+        <action
+            android:id="@+id/action_doctorBooking_to_doctorDetails"
+            app:destination="@id/doctorDetails" />
+    </fragment>
+    <fragment
+        android:id="@+id/doctorDetails"
+        android:name="com.example.dryogeshbatra.fragments.doctorDetails.DoctorDetails"
+        android:label="doctor_details_fragment"
+        tools:layout="@layout/doctor_details_fragment" />
+</navigation>

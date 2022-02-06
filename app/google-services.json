@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "262297032409",
+    "project_id": "dr-yogesh-batra",
+    "storage_bucket": "dr-yogesh-batra.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:262297032409:android:c3871af12cc6cc72ce50c8",
+        "android_client_info": {
+          "package_name": "com.example.dryogeshbatra"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "262297032409-ci1ml610rm8msapafp8trp44hoarhop3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCi7Pa7S-nIJwCpFyyyJQRvsJe0tE0thRU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "262297032409-ci1ml610rm8msapafp8trp44hoarhop3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
