@@ -2,6 +2,6 @@ package com.example.dryogeshbatra.fragments.doctorDetails
 
 import androidx.lifecycle.ViewModel
 
-class DoctorDetailsViewModel : ViewModel() {
+class DoctorDateViewModel : ViewModel() {
     // TODO: Implement the ViewModel
 }

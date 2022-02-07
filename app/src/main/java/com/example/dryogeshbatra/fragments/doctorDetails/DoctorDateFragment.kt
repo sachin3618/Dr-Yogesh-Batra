@@ -1,32 +1,51 @@
 package com.example.dryogeshbatra.fragments.doctorDetails
 
-import androidx.lifecycle.ViewModelProvider
+
+import android.content.res.Resources
+import android.graphics.Color
 import android.os.Bundle
+import androidx.lifecycle.ViewModelProvider
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.dryogeshbatra.R
 
-class DoctorDetails : Fragment() {
+
+import com.example.dryogeshbatra.databinding.DoctorDateFragmentBinding
+
+
+
+class DoctorDateFragment : Fragment() {
 
     companion object {
-        fun newInstance() = DoctorDetails()
+        fun newInstance() = DoctorDateFragment()
     }
 
-    private lateinit var viewModel: DoctorDetailsViewModel
+    private lateinit var viewModel: DoctorDateViewModel
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.doctor_details_fragment, container, false)
+
+        val binding = DoctorDateFragmentBinding.inflate(inflater)
+
+
+
+        return binding.root
+
     }
+
+
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DoctorDetailsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(DoctorDateViewModel::class.java)
         // TODO: Use the ViewModel
     }
+
+
 
 }

@@ -3,20 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/doctorBooking">
-
+    app:startDestination="@id/doctorDateFragment">
     <fragment
-        android:id="@+id/doctorBooking"
+        android:id="@+id/doctorDateFragment"
+        android:name="com.example.dryogeshbatra.fragments.doctorDetails.DoctorDateFragment"
+        android:label="doctor_date_fragment"
+        tools:layout="@layout/doctor_date_fragment" />
+    <fragment
+        android:id="@+id/doctorBookingFragment"
         android:name="com.example.dryogeshbatra.fragments.doctorBooking.DoctorBookingFragment"
         android:label="doctor_booking_fragment"
-        tools:layout="@layout/doctor_booking_fragment" >
-        <action
-            android:id="@+id/action_doctorBooking_to_doctorDetails"
-            app:destination="@id/doctorDetails" />
-    </fragment>
-    <fragment
-        android:id="@+id/doctorDetails"
-        android:name="com.example.dryogeshbatra.fragments.doctorDetails.DoctorDetails"
-        android:label="doctor_details_fragment"
-        tools:layout="@layout/doctor_details_fragment" />
+        tools:layout="@layout/doctor_booking_fragment" />
 </navigation>
