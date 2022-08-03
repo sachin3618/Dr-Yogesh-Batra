@@ -402,10 +402,10 @@ Dr. Yogesh has contributed greatly to the field of medicine in his long career a
         android:layout_height="wrap_content"
         android:backgroundTint="@color/colorPrimary"
         android:src="@drawable/ic_baseline_share_24"
-        android:tint="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@+id/frameLayout"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#FFFFFF" />
 
     <TextView
         android:id="@+id/textView15"

@@ -22,14 +22,6 @@
             android:scaleType="fitXY"
             android:src="@drawable/auth_screens_background" />
 
-        <ImageView
-            android:layout_width="339dp"
-            android:layout_height="179dp"
-            android:layout_gravity="center"
-            android:contentDescription="@string/app_name"
-            android:scaleType="centerCrop"
-            android:src="@drawable/ic_my_app_icon"
-            app:tint="@color/colorWhite" />
     </FrameLayout>
 
     <com.example.shopiz.utils.MSPTextViewBold

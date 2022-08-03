@@ -1,18 +1,15 @@
 package com.example.dryogeshbatra.fragments.doctorDetails
 
 
-import android.content.res.Resources
-import android.graphics.Color
+import android.R
 import android.os.Bundle
-import androidx.lifecycle.ViewModelProvider
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
-
+import android.widget.ImageView
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProvider
 import com.example.dryogeshbatra.databinding.DoctorDateFragmentBinding
-
 
 
 class DoctorDateFragment : Fragment() {
@@ -31,11 +28,12 @@ class DoctorDateFragment : Fragment() {
     ): View? {
 
         val binding = DoctorDateFragmentBinding.inflate(inflater)
-
-
-
+        binding.calendarView.minDate = System.currentTimeMillis() - 1000;
         return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
     }
 
 
