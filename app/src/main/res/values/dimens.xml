@@ -182,4 +182,8 @@
     <dimen name="sold_details_items_receipt">16dp</dimen>
     <dimen name="sold_details_label_value_textSize">18sp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
 </resources>

@@ -1,18 +1,20 @@
 package com.example.dryogeshbatra
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
-import com.example.dryogeshbatra.firestore.FirestoreClass
-import com.example.dryogeshbatra.models.User
-import com.example.dryogeshbatra.utils.Constants
+import androidx.activity.viewModels
+import com.example.dryogeshbatra.commonViewModel.BookViewModel
+
+import com.example.shopiz.models.User
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
+    val viewModel: BookViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -28,6 +30,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         btn_login.setOnClickListener(this)
         // Click event assigned to Register text.
         tv_register.setOnClickListener(this)
+
+
+
+
+        if (viewModel.checkIfTheUserIsLoggedIn(this) != "" && viewModel.checkIfTheUserIsLoggedIn(this) != null) {
+            alreadyLoggedInUserIntent()
+            Log.i("loggedInFired", "true")
+        }
     }
 
     override fun onClick(v: View?) {
@@ -42,9 +52,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                 }
 
                 R.id.btn_login -> {
-
                     logInRegisteredUser()
-
                 }
 
                 R.id.tv_register -> {
@@ -73,7 +81,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
                     hideProgressDialog()
                     if (task.isSuccessful) {
-                        FirestoreClass().getUserDetails(this@LoginActivity)
+                        viewModel.getUserDetails(this@LoginActivity)
                     } else {
                         // Hide the progress dialog
                         hideProgressDialog()
@@ -81,6 +89,15 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
                     }
                 }
         }
+
+
+    }
+
+    fun alreadyLoggedInUserIntent(){
+        val intent = Intent(this, DashboardActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        startActivity(intent)
+        finish()
     }
 
     fun userLoggedInSuccess(user: User) {
@@ -88,15 +105,14 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         // Hide the progress dialog.
         hideProgressDialog()
 
-        if (user.profileCompleted == 0) {
+        /*if (user.profileCompleted == 0) {
             // If the user profile is incomplete then launch the UserProfileActivity.
             val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
             intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
             startActivity(intent)
-        } else {
-            // Redirect the user to Dashboard Screen after log in.
-            startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
-        }
+        } else {  }*/
+        // Redirect the user to Dashboard Screen after log in.
+        startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
         finish()
     }
 
@@ -117,4 +133,6 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             }
         }
     }
+
+
 }

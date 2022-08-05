@@ -1,12 +1,12 @@
 package com.example.dryogeshbatra
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.WindowManager
 import android.widget.Toast
-import com.example.dryogeshbatra.firestore.FirestoreClass
-import com.example.dryogeshbatra.models.User
+import androidx.activity.viewModels
+import com.example.dryogeshbatra.commonViewModel.BookViewModel
+import com.example.shopiz.models.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_register.*
 
 class RegisterActivity : BaseActivity(){
+    val viewModel : BookViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
@@ -112,15 +113,16 @@ class RegisterActivity : BaseActivity(){
                             val firebaseUser: FirebaseUser = task.result!!.user!!
 
                             // Instance of User data model class.
-                            val user = com.example.dryogeshbatra.models .User(
+                            val user = User(
                                 firebaseUser.uid,
                                 et_first_name.text.toString().trim { it <= ' ' },
                                 et_last_name.text.toString().trim { it <= ' ' },
-                                et_email.text.toString().trim { it <= ' ' }
+                                et_email.text.toString().trim { it <= ' ' },
+                                et_password.text.toString().trim{ it <= ' '}
                             )
 
                             // Pass the required values in the constructor.
-                            FirestoreClass().registerUser(this@RegisterActivity, user)
+                            viewModel.registerUser(this@RegisterActivity, user)
                         } else {
 
                             // Hide the progress dialog

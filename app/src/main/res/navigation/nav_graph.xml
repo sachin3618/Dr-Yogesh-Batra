@@ -7,11 +7,15 @@
     <fragment
         android:id="@+id/doctorDateFragment"
         android:name="com.example.dryogeshbatra.fragments.doctorDetails.DoctorDateFragment"
-        android:label="doctor_date_fragment"
+        android:label="Select Appointment"
         tools:layout="@layout/doctor_date_fragment" />
     <fragment
         android:id="@+id/doctorBookingFragment"
         android:name="com.example.dryogeshbatra.fragments.doctorBooking.DoctorBookingFragment"
-        android:label="doctor_booking_fragment"
-        tools:layout="@layout/doctor_booking_fragment" />
+        android:label="Dr. Yogesh Batra"
+        tools:layout="@layout/doctor_booking_fragment">
+        <action
+            android:id="@+id/action_doctorBookingFragment_to_doctorDateFragment"
+            app:destination="@id/doctorDateFragment" />
+    </fragment>
 </navigation>

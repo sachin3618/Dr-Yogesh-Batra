@@ -186,4 +186,16 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_activity_dash">DashActivity</string>
     <string name="title_activity_dactivity">dActivity</string>
+
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_profile">Profile</string>
+    <string name="menu_chat">Chats</string>
+    <string name="menu_settings">Settings</string>
+
 </resources>

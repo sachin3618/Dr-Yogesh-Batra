@@ -1,4 +1,4 @@
-package com.example.dryogeshbatra.models
+package com.example.shopiz.models
 
 import android.os.Parcelable
 import kotlinx.android.parcel.Parcelize
@@ -9,6 +9,7 @@ data class User(
     val firstName: String = "",
     val lastName: String = "",
     val email: String = "",
+    val password: String = "",
     val image: String = "",
     val mobile: Long = 0,
     val gender: String = "",

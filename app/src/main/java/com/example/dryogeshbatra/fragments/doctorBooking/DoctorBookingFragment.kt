@@ -10,9 +10,9 @@ import com.example.dryogeshbatra.R
 
 class DoctorBookingFragment : Fragment() {
 
-    companion object {
+   /* companion object {
         fun newInstance() = DoctorBookingFragment()
-    }
+    }*/
 
     private lateinit var viewModel: DoctorBookingViewModel
 
