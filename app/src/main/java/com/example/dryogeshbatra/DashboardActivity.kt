@@ -25,15 +25,14 @@ class DashboardActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         setSupportActionBar(binding.appBarMain.toolbar)
-
         val drawerLayout: DrawerLayout = binding.drawerLayout
         val navView: NavigationView = binding.navView
         val navController = findNavController(R.id.nav_host_fragment_content_main)
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(
-            setOf(
-                R.id.doctorBookingFragment, R.id.doctorDateFragment
+            setOf( R.id.userProfileActivity, R.id.nav_chat, R.id.nav_settings, R.id.nav_appointment,
+                R.id.doctorBookingFragment, R.id.doctorDateFragment,
             ), drawerLayout
         )
         setupActionBarWithNavController(navController, appBarConfiguration)

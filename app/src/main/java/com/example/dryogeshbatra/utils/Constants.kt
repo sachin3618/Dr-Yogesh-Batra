@@ -21,7 +21,8 @@ object Constants {
     const val SOLD_PRODUCTS: String = "sold_products"
 
     const val MYSHOPPAL_PREFERENCES: String = "MyShopPalPrefs"
-    const val LOGGED_IN_USERNAME: String = "logged_in_username"
+    const val LOGGED_USER_DETAILS: String = "logged_user_details"
+    const val LOGGED_STRING_KEY: String = "logged_string_key"
 
     // Intent extra constants.
     const val EXTRA_USER_DETAILS: String = "extra_user_details"

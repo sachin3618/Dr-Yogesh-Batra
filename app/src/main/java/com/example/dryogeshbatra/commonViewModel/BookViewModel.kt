@@ -3,11 +3,11 @@ package com.example.dryogeshbatra.commonViewModel
 import android.app.Activity
 import android.app.DownloadManager
 import android.content.*
+import android.content.Context.MODE_PRIVATE
 import android.net.Uri
 import android.os.Environment
 import android.util.Log
 import android.widget.Toast
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.dryogeshbatra.LoginActivity
 import com.example.dryogeshbatra.RegisterActivity
@@ -17,6 +17,8 @@ import com.example.shopiz.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.gson.Gson
+
 
 class BookViewModel: ViewModel(){
    // val bookList = MutableLiveData<ArrayList<BooksList>>()
@@ -85,17 +87,24 @@ class BookViewModel: ViewModel(){
     }
 
     fun checkIfTheUserIsLoggedIn(activity : Activity): String{
-        val sharedPreferences =
+
+        val sharedPrefers =
             activity.getSharedPreferences(
-                Constants.MYSHOPPAL_PREFERENCES,
-                Context.MODE_PRIVATE
+                Constants.LOGGED_USER_DETAILS,
+                MODE_PRIVATE
             )
+        val gson = Gson()
+        val json: String? = sharedPrefers.getString(Constants.LOGGED_STRING_KEY, "")
 
+        if (json == "") {
+            return ""
+            //password has not been saved...
+        } else {
+            //password is already there...
+            val userDetails = gson.fromJson(json, User::class.java)
+            return userDetails.id
+        }
         // Create an instance of the editor which is help us to edit the SharedPreference.
-
-        val channel = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "")
-        Log.i("channelId", channel.toString())
-        return channel.toString()
     }
 /*
 
@@ -141,7 +150,7 @@ class BookViewModel: ViewModel(){
                 // Here we have received the document snapshot which is converted into the User Data model object.
                 val user = document.toObject(User::class.java)!!
 
-                val sharedPreferences =
+               /* val sharedPreferences =
                     activity.getSharedPreferences(
                         Constants.MYSHOPPAL_PREFERENCES,
                         Context.MODE_PRIVATE
@@ -153,7 +162,7 @@ class BookViewModel: ViewModel(){
                     Constants.LOGGED_IN_USERNAME,
                     user.id
                 )
-                editor.apply()
+                editor.apply()*/
 
                 when (activity) {
                     is LoginActivity -> {

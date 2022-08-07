@@ -8,10 +8,12 @@ import android.view.View
 import android.view.WindowManager
 import androidx.activity.viewModels
 import com.example.dryogeshbatra.commonViewModel.BookViewModel
-
+import com.example.dryogeshbatra.utils.Constants
 import com.example.shopiz.models.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.doctor_booking_fragment.*
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
     val viewModel: BookViewModel by viewModels()
@@ -38,6 +40,7 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
             alreadyLoggedInUserIntent()
             Log.i("loggedInFired", "true")
         }
+       // Log.i("mytagggg", viewModel.checkIfTheUserIsLoggedIn(this))
     }
 
     override fun onClick(v: View?) {
@@ -93,6 +96,32 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
 
     }
 
+    fun userLoggedInSuccess(user: User) {
+
+        // Hide the progress dialog.
+        val sharedPref = getSharedPreferences(Constants.LOGGED_USER_DETAILS, MODE_PRIVATE)
+        val editor = sharedPref.edit()
+        val gson = Gson()
+        val userDetails = gson.toJson(user)
+        editor.putString(Constants.LOGGED_STRING_KEY, userDetails)
+        // Don't forget to commit your edits!!!
+        // Don't forget to commit your edits!!!
+        editor.commit()
+        hideProgressDialog()
+
+        if (user.profileCompleted == 0) {
+            // If the user profile is incomplete then launch the UserProfileActivity.
+            val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
+           // intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
+            startActivity(intent)
+
+        } else {
+            // Redirect the user to Dashboard Screen after log in.
+            startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
+        }
+        finish()
+    }
+
     fun alreadyLoggedInUserIntent(){
         val intent = Intent(this, DashboardActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -100,21 +129,21 @@ class LoginActivity : BaseActivity(), View.OnClickListener {
         finish()
     }
 
-    fun userLoggedInSuccess(user: User) {
+   /* fun userLoggedInSuccess(user: User) {
 
         // Hide the progress dialog.
         hideProgressDialog()
 
-        /*if (user.profileCompleted == 0) {
+        *//*if (user.profileCompleted == 0) {
             // If the user profile is incomplete then launch the UserProfileActivity.
             val intent = Intent(this@LoginActivity, UserProfileActivity::class.java)
             intent.putExtra(Constants.EXTRA_USER_DETAILS, user)
             startActivity(intent)
-        } else {  }*/
+        } else {  }*//*
         // Redirect the user to Dashboard Screen after log in.
         startActivity(Intent(this@LoginActivity, DashboardActivity::class.java))
         finish()
-    }
+    }*/
 
 
 

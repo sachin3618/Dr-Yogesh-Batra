@@ -4,14 +4,19 @@ import android.app.Activity
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import android.net.Uri
 import android.util.Log
 import com.example.dryogeshbatra.LoginActivity
 import com.example.dryogeshbatra.RegisterActivity
+import com.example.dryogeshbatra.UserProfileActivity
 import com.example.dryogeshbatra.utils.Constants
 import com.example.shopiz.models.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.StorageReference
+import com.google.gson.Gson
 
 
 object FirestoreClass {
@@ -569,6 +574,10 @@ object FirestoreClass {
             }
     }
 
+
+*/
+
+
     fun updateUserProfileData(activity: Activity, userHashMap: HashMap<String, Any>) {
         // Collection Name
         mFireStore.collection(Constants.USERS)
@@ -582,6 +591,7 @@ object FirestoreClass {
                 when (activity) {
                     is UserProfileActivity -> {
                         // Call a function of base activity for transferring the result to it.
+
                         activity.userProfileUpdateSuccess()
                     }
                 }
@@ -602,7 +612,64 @@ object FirestoreClass {
                 )
             }
     }
-*/
+
+    fun uploadImageToCloudStorage(activity: Activity, imageFileURI: Uri?, imageType: String) {
+
+        //getting the storage reference
+        val sRef: StorageReference = FirebaseStorage.getInstance().reference.child(
+            imageType + System.currentTimeMillis() + "."
+                    + Constants.getFileExtension(
+                activity,
+                imageFileURI
+            )
+        )
+
+        //adding the file to reference
+        sRef.putFile(imageFileURI!!)
+            .addOnSuccessListener { taskSnapshot ->
+                // The image upload is success
+                Log.e(
+                    "Firebase Image URL",
+                    taskSnapshot.metadata!!.reference!!.downloadUrl.toString()
+                )
+
+                // Get the downloadable url from the task snapshot
+                taskSnapshot.metadata!!.reference!!.downloadUrl
+                    .addOnSuccessListener { uri ->
+                        Log.e("Downloadable Image URL", uri.toString())
+
+                        // Here call a function of base activity for transferring the result to it.
+                        when (activity) {
+                            is UserProfileActivity -> {
+                                activity.imageUploadSuccess(uri.toString())
+                            }
+
+                           /* is AddProductActivity -> {
+                                activity.imageUploadSuccess(uri.toString())
+                            }*/
+                        }
+                    }
+            }
+            .addOnFailureListener { exception ->
+
+                // Hide the progress dialog if there is any error. And print the error in log.
+                when (activity) {
+                    is UserProfileActivity -> {
+                        activity.hideProgressDialog()
+                    }
+
+                   /* is AddProductActivity -> {
+                        activity.hideProgressDialog()
+                    }*/
+                }
+
+                Log.e(
+                    activity.javaClass.simpleName,
+                    exception.message,
+                    exception
+                )
+            }
+    }
 
 
     fun getCurrentUserID(): String {
@@ -618,7 +685,7 @@ object FirestoreClass {
         return currentUserID
     }
 
-    fun checkIfTheUserIsLoggedIn(activity : Activity): String{
+  /*  fun checkIfTheUserIsLoggedIn(activity : Activity): String{
         val sharedPreferences =
             activity.getSharedPreferences(
                 Constants.MYSHOPPAL_PREFERENCES,
@@ -630,7 +697,7 @@ object FirestoreClass {
         val channel = sharedPreferences.getString(Constants.LOGGED_IN_USERNAME, "")
         Log.i("channelId", channel.toString())
         return channel.toString()
-    }
+    }*/
 /*
 
     fun uploadBookDetails(bookDetails: BooksList){
@@ -678,15 +745,16 @@ object FirestoreClass {
                 val sharedPreferences =
                     activity.getSharedPreferences(
                         Constants.MYSHOPPAL_PREFERENCES,
-                        Context.MODE_PRIVATE
+                        MODE_PRIVATE
                     )
 
                 // Create an instance of the editor which is help us to edit the SharedPreference.
                 val editor: SharedPreferences.Editor = sharedPreferences.edit()
-                editor.putString(
-                    Constants.LOGGED_IN_USERNAME,
-                    user.id
-                )
+
+                val gson = Gson()
+                val json: String = gson.toJson(user)
+                editor.putString(Constants.LOGGED_USER_DETAILS, json)
+                editor.commit()
                 editor.apply()
 
                 when (activity) {
@@ -695,16 +763,17 @@ object FirestoreClass {
                         activity.userLoggedInSuccess(user)
                     }
 
-                    /*is SettingsActivity -> {
+                    is UserProfileActivity -> {
                         // Call a function of base activity for transferring the result to it.
-                        activity.userDetailsSuccess(user)
-                    }*/
+                       // activity.userDetailsSuccess(user)
+                    }
                 }
             }
             .addOnFailureListener { e ->
                 // Hide the progress dialog if there is any error. And print the error in log.
                 when (activity) {
                     is LoginActivity -> {
+
                         activity.hideProgressDialog()
                     }
                     /*is SettingsActivity -> {
