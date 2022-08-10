@@ -15,8 +15,8 @@
         android:label="Dr. Yogesh Batra"
         tools:layout="@layout/doctor_booking_fragment">
         <action
-            android:id="@+id/action_doctorBookingFragment_to_doctorDateFragment"
-            app:destination="@id/doctorDateFragment" />
+            android:id="@+id/action_doctorBookingFragment_to_confirmDetailsFragment"
+            app:destination="@id/confirmDetailsFragment" />
     </fragment>
 
 
@@ -40,6 +40,15 @@
         android:name="com.example.dryogeshbatra.UserProfileActivity"
         android:label="activity_user_profile"
         tools:layout="@layout/activity_user_profile" />
+    <fragment
+        android:id="@+id/confirmDetailsFragment"
+        android:name="com.example.dryogeshbatra.ConfirmDetailsFragment"
+        android:label="Confirm Details"
+        tools:layout="@layout/fragment_confirm_details">
+        <action
+            android:id="@+id/action_confirmDetailsFragment_to_doctorDateFragment"
+            app:destination="@id/doctorDateFragment" />
+    </fragment>
 
 
 </navigation>

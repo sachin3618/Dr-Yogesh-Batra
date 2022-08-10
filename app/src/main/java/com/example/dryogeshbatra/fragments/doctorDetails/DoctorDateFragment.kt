@@ -14,9 +14,6 @@ import com.example.dryogeshbatra.databinding.DoctorDateFragmentBinding
 
 class DoctorDateFragment : Fragment() {
 
-    companion object {
-        fun newInstance() = DoctorDateFragment()
-    }
 
     private lateinit var viewModel: DoctorDateViewModel
 
@@ -34,6 +31,7 @@ class DoctorDateFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
     }
 
 

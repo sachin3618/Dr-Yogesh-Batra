@@ -201,5 +201,8 @@
     <string name="app_description"> Doctor Yogesh Batra</string>
     <string name="contact_group"> 0987654321</string>
     <string name="application_information_group"> Fun and Fine</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="confirm_mobile_number">Confirm Mobile Number</string>
 
 </resources>
