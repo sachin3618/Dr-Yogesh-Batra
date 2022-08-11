@@ -17,7 +17,6 @@ import com.example.dryogeshbatra.utils.Constants
 import com.example.dryogeshbatra.utils.GlideLoader
 import com.example.shopiz.models.User
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_login.et_email
 import kotlinx.android.synthetic.main.activity_user_profile.*
 import java.io.IOException

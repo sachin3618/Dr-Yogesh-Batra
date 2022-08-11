@@ -18,4 +18,8 @@ class MSPEditText(context: Context, attrs: AttributeSet):AppCompatEditText(conte
             Typeface.createFromAsset(context.assets, "Montserrat-Bold.ttf")
         setTypeface(typeface)
     }
+
+    /*fun setText(mobile: Long) {
+
+    }*/
 }

@@ -7,12 +7,16 @@ import java.util.*
 
 @Parcelize
 data class UserBookingDetails(
-    var firstName : String = "",
+    var firstName: String = "",
     var lastName: String = "",
-    var userNumber: Int = -1,
+    var gender: String = "",
+    var appointmentType: String = "",
+    var appointmentMode: String = "",
+    var appointmentDate : Long = 0L,
+    var appointmentSlot : Long = 0L,
     var userId: String = "",
-    var userBooking : DateSlot = DateSlot(),
-    var paymentStatus : Boolean = false,
+    var userBooking: DateSlot = DateSlot(),
+    var paymentStatus: Boolean = false,
     var paymentTransId: String = "",
     var phoneNumber: String = ""
 ) : Parcelable

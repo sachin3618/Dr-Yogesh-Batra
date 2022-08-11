@@ -12,11 +12,8 @@ import com.example.dryogeshbatra.R
 import com.example.dryogeshbatra.models.DateSlot
 import com.example.dryogeshbatra.models.UserBookingDetails
 import com.example.dryogeshbatra.models.UserSlots
-import com.example.dryogeshbatra.realtimeDatabase.FirebaseDatabase
 import com.example.dryogeshbatra.utils.Constants
 import com.example.shopiz.models.User
-import com.google.firebase.database.ktx.database
-import com.google.firebase.ktx.Firebase
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.doctor_booking_fragment.*
 import java.text.SimpleDateFormat
@@ -42,7 +39,7 @@ class DoctorBookingFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var userDetails : User? = null
+       /* var userDetails : User? = null
 
         val sharedPref = this.activity!!.getSharedPreferences(
             Constants.LOGGED_USER_DETAILS,
@@ -53,23 +50,11 @@ class DoctorBookingFragment : Fragment() {
         val gson = Gson()
         val json: String? = sharedPref.getString(Constants.LOGGED_STRING_KEY, "")
         userDetails = gson.fromJson(json, User::class.java)
+*/
 
-        val userBookingDetails = UserBookingDetails("Sachin", "Singh", 1, userDetails.id,
-            DateSlot(
-                0,
-                UserSlots(true, "Normal", "Offline", 3)),
-            true,
-            "3456774567",
-            "234567876"
-        )
-
-
-        btn_book_appointment.setOnClickListener{
-            val action =
-                DoctorBookingFragmentDirections.actionDoctorBookingFragmentToConfirmDetailsFragment()
+        btn_book_appointment.setOnClickListener {
+            val action = DoctorBookingFragmentDirections.actionDoctorBookingFragmentToConfirmDetailsFragment()
             view.findNavController().navigate(action)
-          // FirebaseDatabase.uploadAppointmentDetails(userDetails.id)
-            //myRef.setValue(DateSlot)
         }
 
 
