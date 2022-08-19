@@ -148,15 +148,16 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView19">
 
                         <RadioButton
-                            android:id="@+id/radioButton7"
+                            android:id="@+id/rb_online"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Online"
+                            android:checked="true"
                             android:textColor="@color/colorSecondaryText" />
 
                         <RadioButton
-                            android:id="@+id/radioButton"
+                            android:id="@+id/rb_offline"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -198,7 +199,7 @@
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <DatePicker
-                        android:id="@+id/calendarView"
+                        android:id="@+id/cv_appointment_date"
                         android:layout_width="336dp"
                         android:layout_height="412dp"
                         app:layout_constraintBottom_toBottomOf="parent"
@@ -249,15 +250,16 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView18">
 
                         <RadioButton
-                            android:id="@+id/radioButton6"
+                            android:id="@+id/rb_normal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:text="Normal"
+                            android:checked="true"
                             android:textColor="@color/colorSecondaryText" />
 
                         <RadioButton
-                            android:id="@+id/radioButton5"
+                            android:id="@+id/rb_follow_up"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"

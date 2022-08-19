@@ -24,11 +24,6 @@ import kotlinx.android.synthetic.main.fragment_confirm_details.*
 class ConfirmDetailsFragment : Fragment() {
    lateinit var binding : FragmentConfirmDetailsBinding
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -74,6 +69,8 @@ class ConfirmDetailsFragment : Fragment() {
                     Constants.FEMALE
                 }
 
+
+
                 val patientUserDetails = UserBookingDetails(
                 et_patient_first_name.text.toString(),
                 et_patient_last_name.text.toString(),
@@ -83,10 +80,10 @@ class ConfirmDetailsFragment : Fragment() {
                 0L,
                 0L,
                 userDetails.id,
-                DateSlot(0, UserSlots(true, "Normal", "Offline", 3)),
+                DateSlot(0, 0, 0, UserSlots(true, "", "", 0)),
                 false,
-                "3456774567",
-                "234567876"
+                "",
+                ""
                 )
 
                 val action =

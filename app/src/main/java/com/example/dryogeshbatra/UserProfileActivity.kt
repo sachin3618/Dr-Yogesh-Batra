@@ -34,7 +34,7 @@ class UserProfileActivity : BaseActivity(), View.OnClickListener {
         setContentView(R.layout.activity_user_profile)
         val sharedPref = getSharedPreferences(Constants.LOGGED_USER_DETAILS, MODE_PRIVATE)
 
-        val gson = Gson()
+         val gson = Gson()
          val json: String? = sharedPref.getString(Constants.LOGGED_STRING_KEY, "")
          mUserDetails = gson.fromJson(json, User::class.java)
 

@@ -6,6 +6,8 @@ import java.util.*
 
 @Parcelize
 data class DateSlot(
-    var date: Long = 0L,
+    var date: Int = 0,
+    var month: Int = 0,
+    var year: Int = 0,
     var timing: UserSlots = UserSlots()
 ): Parcelable
