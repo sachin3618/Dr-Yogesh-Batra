@@ -9,11 +9,10 @@ import android.view.WindowManager
 import androidx.activity.viewModels
 import com.example.dryogeshbatra.commonViewModel.BookViewModel
 import com.example.dryogeshbatra.utils.Constants
-import com.example.shopiz.models.User
+import com.example.dryogeshbatra.models.UserData.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.doctor_booking_fragment.*
 
 class LoginActivity : BaseActivity(), View.OnClickListener {
     val viewModel: BookViewModel by viewModels()

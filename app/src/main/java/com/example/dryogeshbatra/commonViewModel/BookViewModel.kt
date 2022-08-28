@@ -13,7 +13,7 @@ import com.example.dryogeshbatra.LoginActivity
 import com.example.dryogeshbatra.RegisterActivity
 import com.example.dryogeshbatra.firestore.FirestoreClass
 import com.example.dryogeshbatra.utils.Constants
-import com.example.shopiz.models.User
+import com.example.dryogeshbatra.models.UserData.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions

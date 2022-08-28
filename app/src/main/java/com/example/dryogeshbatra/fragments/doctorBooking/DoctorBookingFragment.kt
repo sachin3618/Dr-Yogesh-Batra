@@ -4,17 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.example.dryogeshbatra.R
-import com.example.dryogeshbatra.models.DateSlot
-import com.example.dryogeshbatra.models.UserBookingDetails
-import com.example.dryogeshbatra.models.UserSlots
-import com.example.dryogeshbatra.utils.Constants
-import com.example.shopiz.models.User
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.doctor_booking_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*

@@ -6,7 +6,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.activity.viewModels
 import com.example.dryogeshbatra.commonViewModel.BookViewModel
-import com.example.shopiz.models.User
+import com.example.dryogeshbatra.models.UserData.User
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth

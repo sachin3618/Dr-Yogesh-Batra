@@ -15,7 +15,7 @@ import androidx.core.content.ContextCompat
 import com.example.dryogeshbatra.firestore.FirestoreClass
 import com.example.dryogeshbatra.utils.Constants
 import com.example.dryogeshbatra.utils.GlideLoader
-import com.example.shopiz.models.User
+import com.example.dryogeshbatra.models.UserData.User
 import com.google.gson.Gson
 import kotlinx.android.synthetic.main.activity_login.et_email
 import kotlinx.android.synthetic.main.activity_user_profile.*

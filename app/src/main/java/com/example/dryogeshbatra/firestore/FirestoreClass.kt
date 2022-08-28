@@ -1,7 +1,6 @@
 package com.example.dryogeshbatra.firestore
 
 import android.app.Activity
-import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import android.net.Uri
@@ -10,7 +9,7 @@ import com.example.dryogeshbatra.LoginActivity
 import com.example.dryogeshbatra.RegisterActivity
 import com.example.dryogeshbatra.UserProfileActivity
 import com.example.dryogeshbatra.utils.Constants
-import com.example.shopiz.models.User
+import com.example.dryogeshbatra.models.UserData.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions

@@ -9,15 +9,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.dryogeshbatra.databinding.FragmentConfirmDetailsBinding
-import com.example.dryogeshbatra.fragments.doctorBooking.DoctorBookingFragmentDirections
 import com.example.dryogeshbatra.models.DateSlot
 import com.example.dryogeshbatra.models.UserBookingDetails
 import com.example.dryogeshbatra.models.UserSlots
 import com.example.dryogeshbatra.utils.Constants
-import com.example.shopiz.models.User
+import com.example.dryogeshbatra.models.UserData.User
 import com.google.gson.Gson
-import kotlinx.android.synthetic.main.activity_user_profile.*
-import kotlinx.android.synthetic.main.doctor_booking_fragment.*
 import kotlinx.android.synthetic.main.fragment_confirm_details.*
 
 

@@ -1,34 +1,27 @@
 package com.example.dryogeshbatra.fragments.doctorDetails
 
 
-import android.app.DatePickerDialog
 import android.os.Bundle
-import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView.OnDateChangeListener
-import android.widget.DatePicker
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import com.example.dryogeshbatra.DashboardActivity
+import com.example.dryogeshbatra.adapters.TimeSlotAdapter
 import com.example.dryogeshbatra.databinding.DoctorDateFragmentBinding
+import com.example.dryogeshbatra.models.AvailableSlots.*
 import com.example.dryogeshbatra.models.DateSlot
-import com.example.dryogeshbatra.models.UserSlots
-import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_user_profile.*
 import kotlinx.android.synthetic.main.doctor_date_fragment.*
-import kotlinx.android.synthetic.main.fragment_confirm_details.*
-import java.util.*
 
 
-class DoctorDateFragment : Fragment(){
+class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener{
 
     lateinit var binding : DoctorDateFragmentBinding
 
     private lateinit var viewModel: DoctorDateViewModel
 
+    var slotBooking: AvailableSlots? = null
 
 
     override fun onCreateView(
@@ -51,9 +44,9 @@ class DoctorDateFragment : Fragment(){
             Log.e("Confirmation", "ConfirmationFragment did not receive traveler information")
             return
         }
-// 2
+
         val args = DoctorDateFragmentArgs.fromBundle(bundle)
-      /*  Log.i("dorctorDateTest", args.patientDetails.firstName)
+      /*Log.i("dorctorDateTest", args.patientDetails.firstName)
         Log.i("dorctorDateTest", args.patientDetails.userId)*/
 
 
@@ -73,6 +66,51 @@ class DoctorDateFragment : Fragment(){
             Log.i("dorctorDateTest", args.patientDetails.userBooking.year.toString())
 
         }*/
+        var dayofmonth = 0
+        var month = 0
+        var year = 0
+
+        dayofmonth = binding.cvAppointmentDate.dayOfMonth
+        month = binding.cvAppointmentDate.month + 1
+        year = binding.cvAppointmentDate.year
+
+
+
+
+
+        val availableSlots = arrayListOf<Hour>(
+            Hour(10, false, "34567yhtgfdvd", 0),
+            Hour(10, false, "34567yhtgfdvd", 30),
+            Hour(11, false, "34567yhtgfdvd", 0),
+            Hour(11, false, "34567yhtgfdvd", 30),
+            Hour(12, false, "34567yhtgfdvd", 0),
+            Hour(12, false, "34567yhtgfdvd", 30),
+            Hour(13, false, "34567yhtgfdvd", 0),
+
+            )
+
+
+        val avslot = arrayListOf<Year>(
+                Year(2022, arrayListOf<Month>(
+                Month(8, arrayListOf<Date>(
+                    Date(20, availableSlots
+                    )
+                ))
+            ))
+            )
+
+
+
+        if(true){
+            val adapter = TimeSlotAdapter(requireActivity(), this, avslot, year, month, dayofmonth)
+            binding.rvAppointmentSlots.adapter = adapter
+        }
+
+
+        binding.cvAppointmentDate.setOnDateChangedListener{datePicker, year, month, date ->
+            val adapter = TimeSlotAdapter(requireActivity(), this, avslot, year, month+1, date)
+            binding.rvAppointmentSlots.adapter = adapter
+        }
 
         binding.btnBookAppointment.setOnClickListener{
             if(validateUserProfileDetails()){
@@ -96,11 +134,12 @@ class DoctorDateFragment : Fragment(){
                     "offline"
                 }
 
+
                 args.patientDetails.appointmentMode = appointmentMode
                 args.patientDetails.appointmentType = appointmentType
 
-                Log.i("modee",args.patientDetails.appointmentType )
-                Log.i("modee",args.patientDetails.appointmentMode )
+                Log.i("modee",args.patientDetails.appointmentType)
+                Log.i("modee",args.patientDetails.appointmentMode)
                 Log.i("dateee", args.patientDetails.userBooking.date.toString() + ":" + args.patientDetails.userBooking.month.toString())
 
             }
@@ -136,7 +175,9 @@ class DoctorDateFragment : Fragment(){
         return true
     }
 
+    override fun onClick(position: Int) {
 
+    }
 
 
 }
