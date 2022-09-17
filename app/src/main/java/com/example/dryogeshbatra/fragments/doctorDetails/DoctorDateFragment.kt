@@ -7,22 +7,34 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import com.example.dryogeshbatra.adapters.TimeSlotAdapter
 import com.example.dryogeshbatra.databinding.DoctorDateFragmentBinding
 import com.example.dryogeshbatra.models.AvailableSlots.*
-import com.example.dryogeshbatra.models.DateSlot
-import kotlinx.android.synthetic.main.doctor_date_fragment.*
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
+import com.google.firebase.ktx.Firebase
+import java.sql.Time
+
+class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
+    val viewModel: DoctorDateViewModel by viewModels()
+
+    val database = Firebase.database("https://dr-batra-e6203-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
+    val globalDoctorSlotsAvailablity: String = "global_slots"
 
 
-class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener{
+    val generalDoctorSlotTimining: String = "general_doctor_slot_timing"
+    val specificDoctorSlotAvailablity: String = "specific_doctor_slot_timing"
 
-    lateinit var binding : DoctorDateFragmentBinding
 
-    private lateinit var viewModel: DoctorDateViewModel
+    val slotAvailablityForSpecificDate = "slot_avaialablity_for_specific_date"
 
-    var slotBooking: AvailableSlots? = null
+    // var adapter: TimeSlotAdapter? = null
 
+    lateinit var binding: DoctorDateFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,139 +57,177 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener{
             return
         }
 
-        val args = DoctorDateFragmentArgs.fromBundle(bundle)
-      /*Log.i("dorctorDateTest", args.patientDetails.firstName)
-        Log.i("dorctorDateTest", args.patientDetails.userId)*/
+        val adapter = TimeSlotAdapter(requireActivity(), this)
+        binding.rvAppointmentSlots.adapter = adapter
+
+        /* database.child(globalDoctorSlotsAvailablity).child("2022").child("9").child("16").child(specificDoctorSlotAvailablity).push().setValue(HourForSpecificDocDate(3, 0))
+        database.child(globalDoctorSlotsAvailablity).child("2022").child("9").child("16").child(specificDoctorSlotAvailablity).push().setValue(HourForSpecificDocDate(3, 30))
+        database.child(globalDoctorSlotsAvailablity).child("2022").child("9").child("16").child(specificDoctorSlotAvailablity).push().setValue(HourForSpecificDocDate(4, 0))
+        database.child(globalDoctorSlotsAvailablity).child("2022").child("9").child("16").child(specificDoctorSlotAvailablity).push().setValue(HourForSpecificDocDate(4, 30))
+        database.child(globalDoctorSlotsAvailablity).child("2022").child("9").child("16").child(specificDoctorSlotAvailablity).push().setValue(HourForSpecificDocDate(5, 0))
+*/
+
+/*
+            database.child(generalDoctorSlotTimining).push().setValue(Hour(2, 0))
+            database.child(generalDoctorSlotTimining).push().setValue(Hour(2, 30))
+            database.child(generalDoctorSlotTimining).push().setValue(Hour(3, 0))
+            database.child(generalDoctorSlotTimining).push().setValue(Hour(3, 30))
+            database.child(generalDoctorSlotTimining).push().setValue(Hour(4, 0))
+            database.child(generalDoctorSlotTimining).push().setValue(Hour(5, 0))
+*/
 
 
 
 
+            /*      HourForSpecificDocDate(3, 0),
+                 HourForSpecificDocDate(3, 30),
+                 HourForSpecificDocDate(4, 0),
+                 HourForSpecificDocDate(4, 30),
+                 HourForSpecificDocDate(5, 0),*/
 
-       /* binding.cvAppointmentDate.setOnDateChangedListener { datePicker, year, month, date ->
-          // Log.i("datePickeer", datePicker.)
-            val dateSlot = DateSlot()
-            dateSlot.date = date
-            dateSlot.month = month
-            dateSlot.year = year
+/*
+         database.child(globalDoctorSlotsAvailablity).child("2022").child("9").child("16").child(slotAvailablityForSpecificDate).push().setValue(Hour(2, 0))
+         database.child(globalDoctorSlotsAvailablity).child("2022").child("9").child("16").child(slotAvailablityForSpecificDate).push().setValue(Hour(2, 30))
+         database.child(globalDoctorSlotsAvailablity).child("2022").child("9").child("16").child(slotAvailablityForSpecificDate).push().setValue(Hour(3, 0))
+         database.child(globalDoctorSlotsAvailablity).child("2022").child("9").child("17").child(slotAvailablityForSpecificDate).push().setValue(Hour(3, 0))
+    */
 
-            args.patientDetails.userBooking = dateSlot
-            Log.i("dorctorDateTest", args.patientDetails.userBooking.date.toString())
-            Log.i("dorctorDateTest", args.patientDetails.userBooking.month.toString())
-            Log.i("dorctorDateTest", args.patientDetails.userBooking.year.toString())
+        //DoctorSlotForGeneral
 
+      /*  database.child(globalDoctorSlotsAvailablity).child("2022")
+            .child("9").child("16")
+            .child(slotAvailablityForSpecificDate).push().setValue()*/
+
+
+        viewModel.date.observe(viewLifecycleOwner) {
+            database.child(generalDoctorSlotTimining)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        if (snapshot != null) {
+                            val list = ArrayList<Hour>()
+                           // val value = snapshot.getValue<ArrayList<Hour>>()
+                           // Log.i("generaldoctorslottimining", value.toString())
+                            for (i in snapshot.children){
+                                i.getValue<Hour>()?.let { it -> list.add(it) }
+                            }
+
+                            list.let { it1 -> viewModel.generalDoctorSlotList = it1 }
+                                viewModel.updateListForAdapter()
+                            // viewModel.updateListForAdapter()
+                        }
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+            //DoctorSlotForThatDay
+            database.child(globalDoctorSlotsAvailablity).child(it[0].toString())
+                .child(it[1].toString()).child(it[2].toString())
+                .child(specificDoctorSlotAvailablity)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val list = ArrayList<HourForSpecificDocDate>()
+                        for (i in snapshot.children){
+                            i.getValue<HourForSpecificDocDate>()?.let { it1 -> list.add(it1) }
+                        }
+                       // val value = snapshot.getValue<ArrayList<HourForSpecificDocDate>>()
+                       // Log.i("specificDoctorSlotAvailablity", value.toString())
+
+                        if (list != null) {
+                            viewModel.specificDoctorSlotList = list
+                            viewModel.updateListForAdapter()
+
+                            //viewModel.updateListForAdapter()
+                        } else {
+                            viewModel.specificDoctorSlotList.clear()
+                            viewModel.updateListForAdapter()
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+
+            //BookedSlotsOfUserForThatDay
+            database.child(globalDoctorSlotsAvailablity).child(it[0].toString())
+                .child(it[1].toString()).child(it[2].toString())
+                .child(slotAvailablityForSpecificDate)
+                .addValueEventListener(object : ValueEventListener {
+                    override fun onDataChange(snapshot: DataSnapshot) {
+                        val list = ArrayList<Hour>()
+                        for (i in snapshot.children){
+                            i.getValue<Hour>()?.let { it1 -> list.add(it1) }
+                        }
+                       // val value = snapshot.getValue<ArrayList<Hour>>()
+                       // Log.i("slotAvailablityForSpecificDate", value.toString())
+
+                        if (list.isNotEmpty()) {
+                            viewModel.slotAvailablityForSpecificDate = list
+                            viewModel.updateListForAdapter()
+
+                            // viewModel.updateListForAdapter()
+                        } else {
+                            viewModel.slotAvailablityForSpecificDate.clear()
+                            viewModel.updateListForAdapter()
+                        }
+
+                    }
+
+                    override fun onCancelled(error: DatabaseError) {
+                        TODO("Not yet implemented")
+                    }
+
+                })
+
+
+        }
+
+        /*if (viewModel.general && viewModel.specific && viewModel.available) {
+            viewModel.updateListForAdapter()
         }*/
-        var dayofmonth = 0
-        var month = 0
-        var year = 0
-
-        dayofmonth = binding.cvAppointmentDate.dayOfMonth
-        month = binding.cvAppointmentDate.month + 1
-        year = binding.cvAppointmentDate.year
 
 
 
 
 
-        val availableSlots = arrayListOf<Hour>(
-            Hour(10, false, "34567yhtgfdvd", 0),
-            Hour(10, false, "34567yhtgfdvd", 30),
-            Hour(11, false, "34567yhtgfdvd", 0),
-            Hour(11, false, "34567yhtgfdvd", 30),
-            Hour(12, false, "34567yhtgfdvd", 0),
-            Hour(12, false, "34567yhtgfdvd", 30),
-            Hour(13, false, "34567yhtgfdvd", 0),
-
-            )
-
-
-        val avslot = arrayListOf<Year>(
-                Year(2022, arrayListOf<Month>(
-                Month(8, arrayListOf<Date>(
-                    Date(20, availableSlots
-                    )
-                ))
-            ))
-            )
-
-
-
-        if(true){
-            val adapter = TimeSlotAdapter(requireActivity(), this, avslot, year, month, dayofmonth)
-            binding.rvAppointmentSlots.adapter = adapter
+        viewModel.date.value = arrayListOf(
+            binding.cvAppointmentDate.year,
+            binding.cvAppointmentDate.month + 1,
+            binding.cvAppointmentDate.dayOfMonth
+        )
+        // Log.i("year", "${binding.cvAppointmentDate.year}: ${binding.cvAppointmentDate.month}: ${binding.cvAppointmentDate.dayOfMonth}")
+        binding.cvAppointmentDate.setOnDateChangedListener { datePicker, year, month, date ->
+            //  Log.i("year:", "${year}:${month}:${date}")
+            viewModel.date.value = arrayListOf(year, month + 1, date)
         }
 
-
-        binding.cvAppointmentDate.setOnDateChangedListener{datePicker, year, month, date ->
-            val adapter = TimeSlotAdapter(requireActivity(), this, avslot, year, month+1, date)
-            binding.rvAppointmentSlots.adapter = adapter
-        }
-
-        binding.btnBookAppointment.setOnClickListener{
-            if(validateUserProfileDetails()){
-                val dateSlot = DateSlot()
-                dateSlot.date = binding.cvAppointmentDate.dayOfMonth
-                dateSlot.month = binding.cvAppointmentDate.month + 1
-                dateSlot.year = binding.cvAppointmentDate.year
-
-                args.patientDetails.userBooking = dateSlot
-
-                val appointmentType = if (rb_normal.isChecked) {
-                    "normal"
-                } else {
-                    "followup"
-                    //  Constants.FEMALE
-                }
-
-                val appointmentMode = if(rb_online.isChecked){
-                    "online"
-                }else{
-                    "offline"
-                }
-
-
-                args.patientDetails.appointmentMode = appointmentMode
-                args.patientDetails.appointmentType = appointmentType
-
-                Log.i("modee",args.patientDetails.appointmentType)
-                Log.i("modee",args.patientDetails.appointmentMode)
-                Log.i("dateee", args.patientDetails.userBooking.date.toString() + ":" + args.patientDetails.userBooking.month.toString())
-
-            }
+        viewModel.listForAdapter.observe(viewLifecycleOwner) {
+            Log.i("listofhour", it.toString())
+            adapter.updateList(it)
         }
 
     }
 
-
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(DoctorDateViewModel::class.java)
-        // TODO: Use the ViewModel
-    }
-
-    private fun validateUserProfileDetails(): Boolean {
-        /*val appointmentType = if (rb_normal.isChecked) {
-            "normal"
-        } else {
-            "followup"
-          //  Constants.FEMALE
-        }
-
-        val appointmentMode = if(rb_online.isChecked){
-            "online"
-        }else{
-            "offline"
-        }*/
-
-
-
-       // val appointmentDate =
-        return true
-    }
 
     override fun onClick(position: Int) {
+        Log.i("OnClickPostion", position.toString())
 
     }
 
 
 }
+
+
+
+
+
+
+
+

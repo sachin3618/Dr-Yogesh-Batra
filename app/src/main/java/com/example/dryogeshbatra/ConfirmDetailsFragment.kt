@@ -9,9 +9,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.dryogeshbatra.databinding.FragmentConfirmDetailsBinding
-import com.example.dryogeshbatra.models.DateSlot
-import com.example.dryogeshbatra.models.UserBookingDetails
-import com.example.dryogeshbatra.models.UserSlots
+import com.example.dryogeshbatra.models.UserData.DateSlot
+import com.example.dryogeshbatra.models.UserData.UserBookingDetails
+import com.example.dryogeshbatra.models.UserData.UserSlots
 import com.example.dryogeshbatra.utils.Constants
 import com.example.dryogeshbatra.models.UserData.User
 import com.google.gson.Gson
@@ -44,6 +44,7 @@ class ConfirmDetailsFragment : Fragment() {
         val json: String? = sharedPref.getString(Constants.LOGGED_STRING_KEY, "")
         userDetails = gson.fromJson(json, User::class.java)
 
+
         et_patient_first_name.setText(userDetails.firstName)
         et_patient_last_name.setText(userDetails.lastName)
         et_patient_email.setText(userDetails.email)
@@ -52,12 +53,7 @@ class ConfirmDetailsFragment : Fragment() {
 
 
 
-
-
-
-
         btn_patient_save.setOnClickListener{
-
            // Log.i("checkingThe", "${TextUtils.equals(et_patient_mobile_number.text.toString(), et_patient_confirm_mobile_number.text.toString())}")
             if(validateUserProfileDetails()){
                 val gender = if (rb_patient_male.isChecked) {
@@ -65,7 +61,6 @@ class ConfirmDetailsFragment : Fragment() {
                 } else {
                     Constants.FEMALE
                 }
-
 
 
                 val patientUserDetails = UserBookingDetails(
@@ -84,7 +79,7 @@ class ConfirmDetailsFragment : Fragment() {
                 )
 
                 val action =
-                    ConfirmDetailsFragmentDirections.actionConfirmDetailsFragmentToDoctorDateFragment(patientUserDetails)
+                    ConfirmDetailsFragmentDirections.actionConfirmDetailsFragmentToDoctorDateFragment()
                 view.findNavController().navigate(action)
             }
 

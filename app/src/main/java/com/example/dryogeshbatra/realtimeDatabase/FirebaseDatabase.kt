@@ -1,13 +1,12 @@
 package com.example.dryogeshbatra.realtimeDatabase
 
-import com.example.dryogeshbatra.models.DateSlot
-import com.example.dryogeshbatra.models.UserBookingDetails
-import com.example.dryogeshbatra.models.UserSlots
+import com.example.dryogeshbatra.models.UserData.UserBookingDetails
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import java.sql.Time
-import java.util.*
-
+private const val globalSlotsAvailablity: String = "global_slots"
 object FirebaseDatabase {
     val database = Firebase.database("https://dr-batra-e6203-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
 
@@ -30,5 +29,9 @@ object FirebaseDatabase {
 
         database.child("users").child(UserId).setValue(userBookingDetails)
     }
+
+
+
+
 
 }
