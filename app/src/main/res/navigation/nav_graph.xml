@@ -8,7 +8,23 @@
         android:id="@+id/doctorDateFragment"
         android:name="com.example.dryogeshbatra.fragments.doctorDetails.DoctorDateFragment"
         android:label="Select Appointment"
-        tools:layout="@layout/doctor_date_fragment" />
+        tools:layout="@layout/doctor_date_fragment" >
+        <argument
+            android:name="patientName"
+            app:argType="string" />
+        <argument
+            android:name="patientLastName"
+            app:argType="string" />
+        <argument
+            android:name="patientEmail"
+            app:argType="string" />
+        <argument
+            android:name="patientMobile"
+            app:argType="string" />
+        <argument
+            android:name="patientGender"
+            app:argType="string" />
+    </fragment>
     <fragment
         android:id="@+id/doctorBookingFragment"
         android:name="com.example.dryogeshbatra.fragments.doctorBooking.DoctorBookingFragment"

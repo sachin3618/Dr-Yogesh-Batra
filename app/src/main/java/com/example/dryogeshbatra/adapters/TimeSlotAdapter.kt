@@ -3,6 +3,7 @@ package com.example.dryogeshbatra.adapters
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,6 +18,7 @@ class TimeSlotAdapter(
     val onClickListener: OnClickListener,
 ) : RecyclerView.Adapter<TimeSlotAdapter.MyViewHolder>() {
     var list: ArrayList<Hour> = arrayListOf()
+    private var currentpos = -1
 
     fun updateList(list: ArrayList<Hour>){
         this.list.clear();
@@ -36,6 +38,7 @@ class TimeSlotAdapter(
         )
     }
 
+
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
       //  val hours = getHours(list, year, month, date)
       //  Log.i("hours", hours.toString())
@@ -45,18 +48,44 @@ class TimeSlotAdapter(
             holder.itemView.tv_time.text = "${list[position].hour}:${list[position].minute}" + " " + "PM"
         }
 
+        fun View.getBackgroundColor() = (background as? ColorDrawable?)?.color ?: Color.TRANSPARENT
+        val color = holder.itemView.getBackgroundColor()
+
+        if (currentpos == position) {
+           // holder.itemView.setText("Checked")
+           // holder.itemView.setBackgroundColor(context.resources.getColor(R.color.colorAccent))
+            holder.itemView.setBackgroundColor(Color.BLUE)
+            onClickListener.onClick(position)
+        } else {
+           // holder.itemView.setText("Check")
+          //  holder.itemView.setBackgroundColor(context.resources.getColor(R.color.colorPrimaryDark))
+            holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+        }
+
+        holder.itemView.setOnClickListener {
+            currentpos = holder.adapterPosition
+            notifyDataSetChanged()
+        }
+        //holder.textviewdat.setText(stringArrayList.get(position))
+
+/*
         holder.itemView.setOnClickListener {
             fun View.getBackgroundColor() = (background as? ColorDrawable?)?.color ?: Color.TRANSPARENT
             val color = holder.itemView.getBackgroundColor()
 
-            if (color == Color.BLUE){
-                holder.itemView.setBackgroundColor(Color.TRANSPARENT)
-                onClickListener.onClick(position)
-            } else{
-                holder.itemView.setBackgroundColor(Color.BLUE)
-                onClickListener.onClick(position)
+            if (selected == false){
+                if (color == Color.BLUE){
+                    selected = false
+                    holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+                    onClickListener.onClick(position)
+                } else{
+                    selected = true
+                    holder.itemView.setBackgroundColor(Color.BLUE)
+                    onClickListener.onClick(position)
+                }
             }
-        }
+
+        }*/
     }
 
 

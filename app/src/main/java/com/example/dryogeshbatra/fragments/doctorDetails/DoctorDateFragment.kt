@@ -8,18 +8,28 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import com.example.dryogeshbatra.adapters.TimeSlotAdapter
 import com.example.dryogeshbatra.databinding.DoctorDateFragmentBinding
+import com.example.dryogeshbatra.firestore.FirestoreClass
 import com.example.dryogeshbatra.models.AvailableSlots.*
+import com.example.dryogeshbatra.models.UserData.UserBookingDetails
+import com.example.dryogeshbatra.models.UserData.UserBookingDetailsForDoc
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
-import java.sql.Time
+import kotlinx.android.synthetic.main.doctor_date_fragment.*
+
 
 class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
+    private lateinit var auth: FirebaseAuth
+
     val viewModel: DoctorDateViewModel by viewModels()
 
     val database = Firebase.database("https://dr-batra-e6203-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
@@ -31,6 +41,11 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
 
 
     val slotAvailablityForSpecificDate = "slot_avaialablity_for_specific_date"
+    val allUsers = "users"
+
+    val singleUserBookedAppointmentList = "user_appointment_list"
+
+    var position = -1
 
     // var adapter: TimeSlotAdapter? = null
 
@@ -50,6 +65,9 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        auth = Firebase.auth
+        val args: DoctorDateFragmentArgs by navArgs()
+        val userId = FirestoreClass.getCurrentUserID()
 
         val bundle = arguments
         if (bundle == null) {
@@ -100,6 +118,7 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
 
 
         viewModel.date.observe(viewLifecycleOwner) {
+
             database.child(generalDoctorSlotTimining)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
@@ -129,7 +148,7 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
                 .child(specificDoctorSlotAvailablity)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val list = ArrayList<HourForSpecificDocDate>()
+                        val list = arrayListOf<HourForSpecificDocDate>()
                         for (i in snapshot.children){
                             i.getValue<HourForSpecificDocDate>()?.let { it1 -> list.add(it1) }
                         }
@@ -161,9 +180,9 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
                 .child(slotAvailablityForSpecificDate)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
-                        val list = ArrayList<Hour>()
+                        val list = ArrayList<UserBookingDetailsForDoc>()
                         for (i in snapshot.children){
-                            i.getValue<Hour>()?.let { it1 -> list.add(it1) }
+                            i.getValue<UserBookingDetailsForDoc>()?.let { it1 -> list.add(it1) }
                         }
                        // val value = snapshot.getValue<ArrayList<Hour>>()
                        // Log.i("slotAvailablityForSpecificDate", value.toString())
@@ -185,8 +204,81 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
                     }
 
                 })
+        }
+
+        fun getAppointmentType(): String{
+            if (rb_normal.isChecked){
+                return "Normal"
+            }else{
+                return "Follow_up"
+            }
+        }
+
+        fun getAppointmentMode(): String{
+            if (rb_online.isChecked){
+                return "Online"
+            }else{
+                return "Offline"
+            }
+        }
+
+        btn_book_appointment.setOnClickListener{
+            Log.i("positionTag", position.toString())
+            if (position > -1){
+                database.child(globalDoctorSlotsAvailablity).child(viewModel.date.value?.get(0).toString())
+                    .child(viewModel.date.value?.get(1).toString()).child(viewModel.date.value?.get(2).toString())
+                    .child(slotAvailablityForSpecificDate)
+                    .push()
+                    .setValue(UserBookingDetailsForDoc(
+                        viewModel.listForAdapter.value?.get(position)!!.hour,
+                        viewModel.listForAdapter.value?.get(position)!!.minute,
+                        args.patientName,
+                        args.patientLastName,
+                        args.patientGender,
+                        getAppointmentType(),
+                        getAppointmentMode(),
+                        viewModel.date.value!![2],
+                        viewModel.date.value!![1],
+                        viewModel.date.value!![0],
+                        userId,
+                        true,
+                        "adryhs9if305",
+                        args.patientMobile
+                    ))
+
+               /* var currentUser = auth.getCurrentUser()
+                Log.i("currentUser", currentUser.toString())*/
+                fun getHour(): Int{
+                   val hour =  viewModel.listForAdapter.value
+                    return hour?.get(position)?.hour!!
+                }
+
+                fun getMin(): Int{
+                    val min = viewModel.listForAdapter.value
+                    return min?.get(position)?.minute!!
+                }
 
 
+
+                database.child(allUsers).child(userId).child(singleUserBookedAppointmentList).push()
+                    .setValue(UserBookingDetails(
+                        args.patientName,
+                        args.patientLastName,
+                        args.patientGender,
+                        getAppointmentType(),
+                        getAppointmentMode(),
+                        viewModel.date.value!![2],
+                        viewModel.date.value!![1],
+                        viewModel.date.value!![0],
+                        getHour(),
+                        getMin(),
+                        userId,
+                        true,
+                        "adryhs9if305",
+                        args.patientMobile
+                    ))
+
+            }
         }
 
         /*if (viewModel.general && viewModel.specific && viewModel.available) {
@@ -217,8 +309,8 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
 
 
     override fun onClick(position: Int) {
-        Log.i("OnClickPostion", position.toString())
-
+       // Log.i("OnClickPostion", position.toString())
+        this.position = position
     }
 
 

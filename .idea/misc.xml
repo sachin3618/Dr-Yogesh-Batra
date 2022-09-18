@@ -29,13 +29,14 @@
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/content_main.xml" value="0.2" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/dialog_progress.xml" value="0.24375" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/doctor_booking_fragment.xml" value="0.24375" />
-        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/doctor_date_fragment.xml" value="0.264" />
-        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_confirm_details.xml" value="0.2" />
-        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_user_appointment.xml" value="0.20652173913043478" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/doctor_date_fragment.xml" value="0.4" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_confirm_details.xml" value="0.4" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_user_appointment.xml" value="0.264" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_user_profile.xml" value="0.20652173913043478" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_user_settings.xml" value="0.144" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/nav_header_main.xml" value="0.11806256306760847" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/user_appointment_list.xml" value="0.264" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/user_booked_slot_list.xml" value="0.536" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/menu/activity_main_drawer.xml" value="0.264" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/menu/main.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/DrYogeshBatra/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1824074074074074" />

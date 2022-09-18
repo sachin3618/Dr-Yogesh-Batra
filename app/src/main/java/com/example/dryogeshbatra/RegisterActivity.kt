@@ -25,7 +25,6 @@ class RegisterActivity : BaseActivity(){
         )
 
         setupActionBar()
-
         tv_login.setOnClickListener{
             // Here when the user click on login text we can either call the login activity or call the onBackPressed function.
             // We will call the onBackPressed function.

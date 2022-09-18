@@ -15,11 +15,12 @@ import com.example.dryogeshbatra.models.UserData.UserSlots
 import com.example.dryogeshbatra.utils.Constants
 import com.example.dryogeshbatra.models.UserData.User
 import com.google.gson.Gson
+import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.fragment_confirm_details.*
 
 
 class ConfirmDetailsFragment : Fragment() {
-   lateinit var binding : FragmentConfirmDetailsBinding
+    lateinit var binding: FragmentConfirmDetailsBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,7 +34,7 @@ class ConfirmDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var userDetails : User?
+        var userDetails: User?
         val sharedPref = this.activity!!.getSharedPreferences(
             Constants.LOGGED_USER_DETAILS,
             AppCompatActivity.MODE_PRIVATE
@@ -53,15 +54,16 @@ class ConfirmDetailsFragment : Fragment() {
 
 
 
-        btn_patient_save.setOnClickListener{
-           // Log.i("checkingThe", "${TextUtils.equals(et_patient_mobile_number.text.toString(), et_patient_confirm_mobile_number.text.toString())}")
-            if(validateUserProfileDetails()){
+        btn_patient_save.setOnClickListener {
+            // Log.i("checkingThe", "${TextUtils.equals(et_patient_mobile_number.text.toString(), et_patient_confirm_mobile_number.text.toString())}")
+            if (validateUserProfileDetails()) {
                 val gender = if (rb_patient_male.isChecked) {
                     Constants.MALE
                 } else {
                     Constants.FEMALE
                 }
 
+/*
 
                 val patientUserDetails = UserBookingDetails(
                 et_patient_first_name.text.toString(),
@@ -77,9 +79,16 @@ class ConfirmDetailsFragment : Fragment() {
                 "",
                 ""
                 )
+*/
 
                 val action =
-                    ConfirmDetailsFragmentDirections.actionConfirmDetailsFragmentToDoctorDateFragment()
+                    ConfirmDetailsFragmentDirections.actionConfirmDetailsFragmentToDoctorDateFragment(
+                        et_patient_first_name.text.toString(),
+                        et_patient_last_name.text.toString(),
+                        et_patient_email.text.toString(),
+                        et_patient_mobile_number.text.toString(),
+                        gender
+                    )
                 view.findNavController().navigate(action)
             }
 
@@ -95,27 +104,49 @@ class ConfirmDetailsFragment : Fragment() {
 
             // Check if the mobile number is not empty as it is mandatory to enter.
             TextUtils.isEmpty(et_patient_first_name.text.toString().trim { it <= ' ' }) -> {
-                (activity as DashboardActivity).showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
+                (activity as DashboardActivity).showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_mobile_number),
+                    true
+                )
                 false
             }
             TextUtils.isEmpty(et_patient_last_name.text.toString().trim { it <= ' ' }) -> {
-                (activity as DashboardActivity).showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
+                (activity as DashboardActivity).showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_mobile_number),
+                    true
+                )
                 false
             }
             TextUtils.isEmpty(et_patient_email.text.toString().trim { it <= ' ' }) -> {
-                (activity as DashboardActivity).showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
+                (activity as DashboardActivity).showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_mobile_number),
+                    true
+                )
                 false
             }
             TextUtils.isEmpty(et_patient_mobile_number.text.toString().trim { it <= ' ' }) -> {
-                (activity as DashboardActivity).showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
+                (activity as DashboardActivity).showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_mobile_number),
+                    true
+                )
                 false
             }
-            TextUtils.isEmpty(et_patient_confirm_mobile_number.text.toString().trim { it <= ' ' }) -> {
-                (activity as DashboardActivity).showErrorSnackBar(resources.getString(R.string.err_msg_enter_mobile_number), true)
+            TextUtils.isEmpty(
+                et_patient_confirm_mobile_number.text.toString().trim { it <= ' ' }) -> {
+                (activity as DashboardActivity).showErrorSnackBar(
+                    resources.getString(R.string.err_msg_enter_mobile_number),
+                    true
+                )
                 false
             }
-            !TextUtils.equals(et_patient_mobile_number.text.toString(), et_patient_confirm_mobile_number.text.toString()) -> {
-                (activity as DashboardActivity).showErrorSnackBar("Mobile number is not matching.", true)
+            !TextUtils.equals(
+                et_patient_mobile_number.text.toString(),
+                et_patient_confirm_mobile_number.text.toString()
+            ) -> {
+                (activity as DashboardActivity).showErrorSnackBar(
+                    "Mobile number is not matching.",
+                    true
+                )
                 false
             }
             et_patient_mobile_number.length() < 10 || et_patient_confirm_mobile_number.length() < 10 -> {
