@@ -39,11 +39,9 @@
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
                 android:text="TextView"
                 android:textSize="25sp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/user_image"
                 app:layout_constraintTop_toTopOf="@+id/user_image" />
 
@@ -53,11 +51,11 @@
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="13dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="8dp"
                 android:text="TextView"
                 android:textSize="20sp"
                 app:layout_constraintBottom_toBottomOf="@+id/user_image"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ib_video_call_clicked"
                 app:layout_constraintStart_toEndOf="@+id/user_image"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
@@ -106,6 +104,17 @@
                 app:layout_constraintEnd_toEndOf="@+id/tv_appointment_mode"
                 app:layout_constraintStart_toStartOf="@+id/tv_appointment_mode"
                 app:layout_constraintTop_toBottomOf="@+id/tv_appointment_mode" />
+
+            <ImageButton
+                android:id="@+id/ib_video_call_clicked"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginEnd="16dp"
+                android:scaleType="centerCrop"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/btn_video" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

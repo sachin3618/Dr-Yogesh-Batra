@@ -1,9 +1,9 @@
 package com.example.dryogeshbatra.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,6 +39,7 @@ class TimeSlotAdapter(
     }
 
 
+    @SuppressLint("ResourceType")
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
       //  val hours = getHours(list, year, month, date)
       //  Log.i("hours", hours.toString())
@@ -54,12 +55,18 @@ class TimeSlotAdapter(
         if (currentpos == position) {
            // holder.itemView.setText("Checked")
            // holder.itemView.setBackgroundColor(context.resources.getColor(R.color.colorAccent))
-            holder.itemView.setBackgroundColor(Color.BLUE)
+            val primaryColor = context.getResources().getColor(R.color.colorPrimary);
+
+
+            holder.itemView.setBackgroundColor(primaryColor)
+            holder.itemView.tv_time.setTextColor(Color.WHITE)
             onClickListener.onClick(position)
         } else {
            // holder.itemView.setText("Check")
           //  holder.itemView.setBackgroundColor(context.resources.getColor(R.color.colorPrimaryDark))
             holder.itemView.setBackgroundColor(Color.TRANSPARENT)
+            holder.itemView.tv_time.setTextColor(Color.BLACK)
+
         }
 
         holder.itemView.setOnClickListener {

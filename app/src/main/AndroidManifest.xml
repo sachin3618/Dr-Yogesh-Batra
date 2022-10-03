@@ -4,14 +4,26 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
     <application
+        android:name=".BaseApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.DrYogeshBatra">
+        android:theme="@style/Theme.DrYogeshBatra"
+        android:usesCleartextTraffic="true">
+
+        <activity
+            android:name=".PaymentActivity"
+            android:exported="true"></activity>
         <activity
             android:name=".UserProfileActivity"
             android:exported="false" />
@@ -20,7 +32,6 @@
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.DrYogeshBatra.NoActionBar">
-
         </activity>
         <activity
             android:name=".SettingsActivity"
@@ -40,14 +51,6 @@
             android:name=".LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.DrYogeshBatra.NoActionBar" >
-
-        </activity>
-        <activity
-            android:name=".SplashActivity"
-            android:exported="true"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.DrYogeshBatra.NoActionBar">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -55,8 +58,20 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.DrYogeshBatra.NoActionBar"></activity>
+        <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
+
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_wwQVVVggaSsveO" />
+        <meta-data
+            android:name="com.google.android.gms.wallet.api.enabled"
+            android:value="true" />
     </application>
 
 </manifest>

@@ -13,6 +13,7 @@ import kotlinx.android.synthetic.main.user_booked_slot_list.view.*
 class UserBookedSlotAdapter(
     private val context: Context,
     val onClickListener: OnClickListener,
+    val videoCallClicked: OnVideoCallClicked
 ) : RecyclerView.Adapter<UserBookedSlotAdapter.MyViewHolder>() {
     private var list: ArrayList<UserBookingDetails> = arrayListOf()
 
@@ -23,6 +24,7 @@ class UserBookedSlotAdapter(
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
+
         return MyViewHolder(
             LayoutInflater.from(context).inflate(
                 R.layout.user_booked_slot_list,
@@ -60,7 +62,11 @@ class UserBookedSlotAdapter(
             "Appointment Mode: " + list[position].appointmentMode
         holder.itemView.tv_payment_status.text = "Payment Status: ${paymentStatus()}"
 
+        holder.itemView.ib_video_call_clicked.setOnClickListener {
+            videoCallClicked.videoCallClicked(position)
+        }
         onClickListener.onClick(position)
+
     }
 
     override fun getItemCount(): Int {
@@ -69,6 +75,10 @@ class UserBookedSlotAdapter(
 
     interface OnClickListener {
         fun onClick(position: Int)
+    }
+
+    interface OnVideoCallClicked{
+        fun videoCallClicked(position: Int)
     }
 
     class MyViewHolder(view: View) : RecyclerView.ViewHolder(view)

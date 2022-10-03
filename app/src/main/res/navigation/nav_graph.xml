@@ -24,6 +24,9 @@
         <argument
             android:name="patientGender"
             app:argType="string" />
+        <action
+            android:id="@+id/action_doctorDateFragment_to_nav_appointment2"
+            app:destination="@id/nav_appointment" />
     </fragment>
     <fragment
         android:id="@+id/doctorBookingFragment"
@@ -38,7 +41,7 @@
 
     <fragment
         android:id="@+id/nav_chat"
-        android:name="com.example.dryogeshbatra.fragments.userChat.userChatFragment"
+        android:name="com.example.dryogeshbatra.fragments.userChat.UserChatFragment"
         android:label="Chats"
         tools:layout="@layout/fragment_user_chat" />
     <fragment
@@ -50,7 +53,11 @@
         android:id="@+id/nav_appointment"
         android:name="com.example.dryogeshbatra.fragments.userAppointments.userAppointmentFragment"
         android:label="Appointments"
-        tools:layout="@layout/fragment_user_appointment" />
+        tools:layout="@layout/fragment_user_appointment" >
+        <action
+            android:id="@+id/action_nav_appointment_to_nav_chat"
+            app:destination="@id/nav_chat" />
+    </fragment>
     <activity
         android:id="@+id/userProfileActivity"
         android:name="com.example.dryogeshbatra.UserProfileActivity"

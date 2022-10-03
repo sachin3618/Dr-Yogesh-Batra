@@ -8,12 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.dryogeshbatra.R
 import com.example.dryogeshbatra.adapters.TimeSlotAdapter
 import com.example.dryogeshbatra.adapters.UserBookedSlotAdapter
 import com.example.dryogeshbatra.databinding.DoctorDateFragmentBinding
 import com.example.dryogeshbatra.databinding.FragmentUserAppointmentBinding
 import com.example.dryogeshbatra.firestore.FirestoreClass
+import com.example.dryogeshbatra.fragments.doctorDetails.DoctorDateFragmentDirections
 import com.example.dryogeshbatra.fragments.doctorDetails.DoctorDateViewModel
 import com.example.dryogeshbatra.models.AvailableSlots.Hour
 import com.example.dryogeshbatra.models.UserData.UserBookingDetails
@@ -26,9 +28,18 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 
-class userAppointmentFragment : Fragment(), UserBookedSlotAdapter.OnClickListener {
+class userAppointmentFragment : Fragment(), UserBookedSlotAdapter.OnClickListener, UserBookedSlotAdapter.OnVideoCallClicked {
     val database = Firebase.database("https://dr-batra-e6203-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
+    val globalDoctorSlotsAvailablity: String = "global_slots"
+
+
+    val generalDoctorSlotTimining: String = "general_doctor_slot_timing"
+    val specificDoctorSlotAvailablity: String = "specific_doctor_slot_timing"
+
     val singleUserBookedAppointmentList = "user_appointment_list"
+
+
+    val slotAvailablityForSpecificDate = "slot_avaialablity_for_specific_date"
     val allUsers = "users"
 
     //private lateinit var auth: FirebaseAuth
@@ -49,7 +60,7 @@ class userAppointmentFragment : Fragment(), UserBookedSlotAdapter.OnClickListene
         super.onViewCreated(view, savedInstanceState)
         val userId = FirestoreClass.getCurrentUserID()
 
-        val adapter = UserBookedSlotAdapter(requireActivity(), this)
+        val adapter = UserBookedSlotAdapter(requireActivity(), this, this)
         binding.recyclerView.adapter = adapter
 
         database.child(allUsers).child(userId).child(singleUserBookedAppointmentList)
@@ -89,7 +100,16 @@ class userAppointmentFragment : Fragment(), UserBookedSlotAdapter.OnClickListene
     }
 
     override fun onClick(position: Int) {
+
         Log.i("value", position.toString())
+    }
+
+    override fun videoCallClicked(position: Int) {
+       /*val action = Direction
+        findNavController().navigate(action)*/
+        val action = userAppointmentFragmentDirections.actionNavAppointmentToNavChat()
+        findNavController().navigate(action)
+        Log.i("videoClicked", "fahg")
     }
 
 

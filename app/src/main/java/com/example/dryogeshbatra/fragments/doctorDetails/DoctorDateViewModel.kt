@@ -3,19 +3,26 @@ package com.example.dryogeshbatra.fragments.doctorDetails
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.example.dryogeshbatra.checkInternet.ListenNetwork
 import com.example.dryogeshbatra.models.AvailableSlots.Hour
 import com.example.dryogeshbatra.models.AvailableSlots.HourForSpecificDocDate
+import com.example.dryogeshbatra.models.UserData.UserBookingDetails
 import com.example.dryogeshbatra.models.UserData.UserBookingDetailsForDoc
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
+import javax.inject.Inject
 
-class DoctorDateViewModel : ViewModel() {
+@HiltViewModel
+class DoctorDateViewModel @Inject constructor(private val listenNetwork: ListenNetwork): ViewModel() {
+    val isConnected : Flow<Boolean> = listenNetwork.isConnected
+    val paymentStatus = MutableLiveData<Boolean>(false)
     val database =
         Firebase.database("https://dr-batra-e6203-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
     val globalSlotsAvailablity: String = "global_slots"
     val specificDaySlotAvailablity: String = "specific_day_slot_availablity"
     val generalDoctorSlotTimining: String = "general_doctor_slot_timing"
-
     var date = MutableLiveData<ArrayList<Int>>()
 
     val listForAdapter = MutableLiveData<ArrayList<Hour>>()
@@ -24,11 +31,17 @@ class DoctorDateViewModel : ViewModel() {
     var specificDoctorSlotList = arrayListOf<HourForSpecificDocDate>()
     var slotAvailablityForSpecificDate = arrayListOf<UserBookingDetailsForDoc>()
 
+    var position = -1
+
+    val userBookingDetailsForDoc = MutableLiveData<UserBookingDetailsForDoc>()
+    val userBookingDetails = MutableLiveData<UserBookingDetails>()
 /*
     var general = false
     var specific = false
     var available = false
 */
+
+
 
     fun updateListForAdapter(){
         Log.i("SpecificDoctorSlotList", specificDoctorSlotList.toString())

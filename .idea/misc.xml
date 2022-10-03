@@ -5,20 +5,28 @@
       <map>
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable-v24/ic_white_color_back_24dp.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/app_gradient_color_background.xml" value="0.1" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/bg_button_lang.xml" value="0.164" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/border.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/drawable_gender_tab_text_color_selector.xml" value="0.1" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/green_button.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.1" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/ic_baseline_mic_24.xml" value="0.11" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/ic_black_color_back_24dp.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/ic_menu_camera.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/ic_my_app_icon.xml" value="0.1" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/ic_razorpay_logo.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/ic_users.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/ic_work.xml" value="0.1" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/secured_by_bg.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/side_nav_bar.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/user_image_background.xml" value="0.1" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/drawable/white_border_black_bg.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/activity_dashboard.xml" value="0.264" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/activity_forgot_password.xml" value="0.24375" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/activity_login.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/activity_main.xml" value="0.24375" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/activity_payment.xml" value="0.4" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/activity_real_network_state.xml" value="0.23505434782608695" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/activity_register.xml" value="0.24375" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/activity_settings.xml" value="0.24375" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/activity_signup.xml" value="0.24375" />
@@ -32,11 +40,13 @@
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/doctor_date_fragment.xml" value="0.4" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_confirm_details.xml" value="0.4" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_user_appointment.xml" value="0.264" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_user_chat.xml" value="0.2" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_user_profile.xml" value="0.20652173913043478" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/fragment_user_settings.xml" value="0.144" />
-        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/nav_header_main.xml" value="0.11806256306760847" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/nav_header_main.xml" value="0.264" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/network_state.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/user_appointment_list.xml" value="0.264" />
-        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/user_booked_slot_list.xml" value="0.536" />
+        <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/layout/user_booked_slot_list.xml" value="0.264" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/menu/activity_main_drawer.xml" value="0.264" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/Dr-Yogesh-Batra/app/src/main/res/menu/main.xml" value="0.1" />
         <entry key="..\:/Users/sachi/AndroidStudioProjects/DrYogeshBatra/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.1824074074074074" />

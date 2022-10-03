@@ -1,20 +1,37 @@
 package com.example.dryogeshbatra.fragments.doctorDetails
 
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.os.Build
 import android.os.Bundle
+import android.text.TextUtils
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
+import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.example.dryogeshbatra.R
 import com.example.dryogeshbatra.adapters.TimeSlotAdapter
 import com.example.dryogeshbatra.databinding.DoctorDateFragmentBinding
 import com.example.dryogeshbatra.firestore.FirestoreClass
 import com.example.dryogeshbatra.models.AvailableSlots.*
+import com.example.dryogeshbatra.models.UserData.User
 import com.example.dryogeshbatra.models.UserData.UserBookingDetails
 import com.example.dryogeshbatra.models.UserData.UserBookingDetailsForDoc
+import com.example.dryogeshbatra.utils.Constants
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
@@ -24,15 +41,27 @@ import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
+import com.google.gson.Gson
+import com.razorpay.Checkout
+import com.razorpay.ExternalWalletListener
+import com.razorpay.PaymentData
+import com.razorpay.PaymentResultWithDataListener
+import kotlinx.android.synthetic.main.activity_dashboard.*
 import kotlinx.android.synthetic.main.doctor_date_fragment.*
+import org.json.JSONObject
 
 
-class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
+class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener{
+
     private lateinit var auth: FirebaseAuth
+    private lateinit var mUserDetails: User
 
-    val viewModel: DoctorDateViewModel by viewModels()
+
+    val viewModel: DoctorDateViewModel by activityViewModels()
 
     val database = Firebase.database("https://dr-batra-e6203-default-rtdb.asia-southeast1.firebasedatabase.app/").reference
+
+
     val globalDoctorSlotsAvailablity: String = "global_slots"
 
 
@@ -45,7 +74,7 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
 
     val singleUserBookedAppointmentList = "user_appointment_list"
 
-    var position = -1
+
 
     // var adapter: TimeSlotAdapter? = null
 
@@ -60,11 +89,85 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
         binding.cvAppointmentDate.minDate = System.currentTimeMillis() - 1000
         binding.cvAppointmentDate.isSelected = false
 
+        val sharedPref = activity?.getSharedPreferences(
+            Constants.LOGGED_USER_DETAILS,
+            AppCompatActivity.MODE_PRIVATE
+        )
+
+        val gson = Gson()
+        val json: String? = sharedPref?.getString(Constants.LOGGED_STRING_KEY, "")
+        mUserDetails = gson.fromJson(json, User::class.java)
+
+
+        //val button: Button = binding.btnBookAppointment
+
         return binding.root
     }
 
+
+    private fun startPayment(mobile: String, email : String) {
+        /*
+        *  You need to pass current activity in order to let Razorpay create CheckoutActivity
+        * */
+        val activity : Activity = requireActivity()
+        val co = Checkout()
+        try {
+                var options = JSONObject()
+
+                options.put("name","Razorpay Corp")
+                options.put("description","Doctor Appointment Fees")
+                //You can omit the image option to fetch the image from dashboard
+                options.put("image","https://s3.amazonaws.com/rzp-mobile/images/rzp.png")
+                options.put("currency","INR")
+                options.put("amount","100")
+                options.put("send_sms_hash",true);
+
+                val prefill = JSONObject()
+                prefill.put("email",email)
+                prefill.put("contact",mobile)
+                options.put("prefill",prefill)
+            co.open(activity,options)
+        }catch (e: Exception){
+            Toast.makeText(activity,"Error in payment: "+ e.message,Toast.LENGTH_LONG).show()
+            e.printStackTrace()
+        }
+    }
+/*
+    override fun onPaymentSuccess(p0: String?, p1: PaymentData?) {
+        try{
+            alertDialogBuilder.setMessage("Payment Successful : Payment ID: $p0\nPayment Data: ${p1?.data}")
+            alertDialogBuilder.show()
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    override fun onPaymentError(p0: Int, p1: String?, p2: PaymentData?) {
+        try {
+            alertDialogBuilder.setMessage("Payment Failed : Payment Data: ${p2?.data}")
+            alertDialogBuilder.show()
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    override fun onExternalWalletSelected(p0: String?, p1: PaymentData?) {
+        try{
+            alertDialogBuilder.setMessage("External wallet was selected : Payment Data: ${p1?.data}")
+            alertDialogBuilder.show()
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+    }
+
+    override fun onClick(dialog: DialogInterface?, which: Int) {
+
+    }*/
+
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        //Firebase.database.setPersistenceEnabled(false)
         auth = Firebase.auth
         val args: DoctorDateFragmentArgs by navArgs()
         val userId = FirestoreClass.getCurrentUserID()
@@ -74,7 +177,6 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
             Log.e("Confirmation", "ConfirmationFragment did not receive traveler information")
             return
         }
-
         val adapter = TimeSlotAdapter(requireActivity(), this)
         binding.rvAppointmentSlots.adapter = adapter
 
@@ -90,7 +192,7 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
             database.child(generalDoctorSlotTimining).push().setValue(Hour(2, 30))
             database.child(generalDoctorSlotTimining).push().setValue(Hour(3, 0))
             database.child(generalDoctorSlotTimining).push().setValue(Hour(3, 30))
-            database.child(generalDoctorSlotTimining).push().setValue(Hour(4, 0))
+            database.child(generalDoctorSlotTimimobilening).push().setValue(Hour(4, 0))
             database.child(generalDoctorSlotTimining).push().setValue(Hour(5, 0))
 */
 
@@ -118,7 +220,6 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
 
 
         viewModel.date.observe(viewLifecycleOwner) {
-
             database.child(generalDoctorSlotTimining)
                 .addValueEventListener(object : ValueEventListener {
                     override fun onDataChange(snapshot: DataSnapshot) {
@@ -223,9 +324,60 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
         }
 
         btn_book_appointment.setOnClickListener{
-            Log.i("positionTag", position.toString())
-            if (position > -1){
-                database.child(globalDoctorSlotsAvailablity).child(viewModel.date.value?.get(0).toString())
+            Log.i("positionTag", viewModel.position.toString())
+            if (viewModel.position > -1){
+                fun getHour(): Int{
+                    val hour =  viewModel.listForAdapter.value
+                    return hour?.get(viewModel.position)?.hour!!
+                }
+
+                fun getMin(): Int{
+                    val min = viewModel.listForAdapter.value
+                    return min?.get(viewModel.position)?.minute!!
+                }
+
+                viewModel.userBookingDetailsForDoc.postValue(
+                    UserBookingDetailsForDoc(
+                        viewModel.listForAdapter.value?.get(viewModel.position)!!.hour,
+                        viewModel.listForAdapter.value?.get(viewModel.position)!!.minute,
+                        args.patientName,
+                        args.patientLastName,
+                        args.patientGender,
+                        getAppointmentType(),
+                        getAppointmentMode(),
+                        viewModel.date.value!![2],
+                        viewModel.date.value!![1],
+                        viewModel.date.value!![0],
+                        userId,
+                        true,
+                        "",
+                        args.patientMobile
+                    )
+                )
+
+                viewModel.userBookingDetails.postValue(
+                    UserBookingDetails(
+                        args.patientName,
+                        args.patientLastName,
+                        args.patientGender,
+                        getAppointmentType(),
+                        getAppointmentMode(),
+                        viewModel.date.value!![2],
+                        viewModel.date.value!![1],
+                        viewModel.date.value!![0],
+                        getHour(),
+                        getMin(),
+                        userId,
+                        true,
+                        "",
+                        args.patientMobile
+                    )
+                )
+
+                startPayment(args.patientMobile, args.patientEmail)
+
+
+                /*database.child(globalDoctorSlotsAvailablity).child(viewModel.date.value?.get(0).toString())
                     .child(viewModel.date.value?.get(1).toString()).child(viewModel.date.value?.get(2).toString())
                     .child(slotAvailablityForSpecificDate)
                     .push()
@@ -246,8 +398,8 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
                         args.patientMobile
                     ))
 
-               /* var currentUser = auth.getCurrentUser()
-                Log.i("currentUser", currentUser.toString())*/
+               *//* var currentUser = auth.getCurrentUser()
+                Log.i("currentUser", currentUser.toString())*//*
                 fun getHour(): Int{
                    val hour =  viewModel.listForAdapter.value
                     return hour?.get(position)?.hour!!
@@ -278,6 +430,8 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
                         args.patientMobile
                     ))
 
+
+*/
             }
         }
 
@@ -305,16 +459,27 @@ class DoctorDateFragment : Fragment(), TimeSlotAdapter.OnClickListener {
             adapter.updateList(it)
         }
 
+        viewModel.paymentStatus.observe(viewLifecycleOwner) {
+            if (it == true){
+                val action = DoctorDateFragmentDirections.actionDoctorDateFragmentToNavAppointment2()
+                findNavController().navigate(action)
+                viewModel.paymentStatus.postValue(false)
+            }
+        }
+
     }
 
 
     override fun onClick(position: Int) {
        // Log.i("OnClickPostion", position.toString())
-        this.position = position
+        viewModel.position = position
     }
 
 
+
 }
+
+
 
 
 

@@ -6,8 +6,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.dialog_progress.*
 
+
+@AndroidEntryPoint
 open class BaseActivity : AppCompatActivity() {
 
     private var doubleBackToExitPressedOnce = false
