@@ -3,8 +3,8 @@
 Official app for booking appointments for Dr. Yogesh Batra (Gastroenterology) at Apollo Hospital, Sarita Vihar, Delhi.
 
 Book Appointments.
-\nChat on Video Call.
-\nOnline/Offline Payments
+Chat on Video Call.
+Online/Offline Payments
 
 
 ![Screenshot_20230601-144720](https://github.com/sachin3618/Dr-Yogesh-Batra/assets/83819683/246834fa-7223-422f-9506-9b01b93d3980)
