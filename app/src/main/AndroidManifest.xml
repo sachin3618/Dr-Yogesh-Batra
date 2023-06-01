@@ -66,9 +66,7 @@
             android:name=".MainActivity"
             android:exported="true" />
 
-        <meta-data
-            android:name="com.razorpay.ApiKey"
-            android:value="rzp_test_wwQVVVggaSsveO" />
+      
         <meta-data
             android:name="com.google.android.gms.wallet.api.enabled"
             android:value="true" />
