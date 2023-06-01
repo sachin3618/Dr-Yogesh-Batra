@@ -7,8 +7,7 @@ Chat on Video Call.
 Online/Offline Payments
 
 
-![Screenshot_20230601-144720](https://github.com/sachin3618/Dr-Yogesh-Batra/assets/83819683/246834fa-7223-422f-9506-9b01b93d3980)
-
+![Screenshot_20230601-144720](https://github.com/sachin3618/SpotifyCloneUltra/assets/83819683/20ad3e56-9184-4276-9f86-460f78f4bddd)
 
 ![Screenshot_20230601-144723](https://github.com/sachin3618/SpotifyClone/assets/83819683/fb87286c-e6db-4bfe-9b05-8bee2661d2a1)
 
